@@ -5,10 +5,6 @@ const { MongoClient, ObjectID } = require('mongodb')
 const connectionURL = 'mongodb://127.0.0.1:27017'
 const databaseName = 'task-manager'
 
-const id = new ObjectID()
-console.log(id.id.length)
-console.log(id.toHexString().length)
-
 MongoClient.connect(connectionURL,{ useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
     if (error) {
        return console.log('Unable to connect to database!')
@@ -16,57 +12,24 @@ MongoClient.connect(connectionURL,{ useNewUrlParser: true, useUnifiedTopology: t
 
     const db = client.db(databaseName)
 
-    // db.collection('users').insertOne({
-    //     _id: id,
-    //     name: 'Vikram',
-    //     age: 26
-    // }, (error, result) => {
+    // db.collection('tasks').findOne({ _id: new ObjectID("5e7d093efee145219029e1f8") }, (error, task) => {
     //     if (error) {
-    //         return console.log('Unable to insert user')
+    //        console.log('Unable to fetch')
     //     }
-    //     console.log(result.ops)
+
+    //     console.log(task)
     // })
 
-
-// db.collection('users').insertMany([
-//     {
-//         name: 'Jen',
-//         age: 28
-//     },
-//     {
-//         name: 'Gunther',
-//         age: 27
-//     }
-// ], (error, result) => {
-//     if (error) {
-//         return console.log('Unable to insert documents!')
-//     }
-
-//     console.log(result.ops)
-// })
-
-// db.collection('tasks').insertMany([
-//     {
-//         description: 'walk roscoe',
-//         completed: true    
-//     },
-//     {
-//         description: 'apply to 15 jobs',
-//         completed: false
-//     },
-//     {
-//         description: 'take shower',
-//         completed: true
-//     }
-// ], (error, result) => {
-//     if (error) {
-//         return console.log('Unable to insert documents!')
-//     }
-
-//     console.log(result.ops)
-// })
-
-
+    db.collection('tasks').find({ completed: false }).toArray((error, tasks) => {
+        if (error) {
+            console.log('Unable to fetch')
+        }
+        tasks.forEach(task => {
+            console.log(task)
+        })
+    })
 })
+
+
 
 
