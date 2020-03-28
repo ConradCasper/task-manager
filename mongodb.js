@@ -12,21 +12,16 @@ MongoClient.connect(connectionURL,{ useNewUrlParser: true, useUnifiedTopology: t
 
     const db = client.db(databaseName)
 
-    // db.collection('tasks').findOne({ _id: new ObjectID("5e7d093efee145219029e1f8") }, (error, task) => {
-    //     if (error) {
-    //        console.log('Unable to fetch')
-    //     }
-
-    //     console.log(task)
-    // })
-
-    db.collection('tasks').find({ completed: false }).toArray((error, tasks) => {
-        if (error) {
-            console.log('Unable to fetch')
+    db.collection('users').updateOne({
+        _id: new ObjectID("5e7cfc40c36a9d208b55aa67")
+    }, {
+        $set: {
+            name: 'Mike'
         }
-        tasks.forEach(task => {
-            console.log(task)
-        })
+    }).then((result) => {
+        console.log(result)
+    }).catch((error) => {
+        console.log(error)
     })
 })
 
