@@ -24,6 +24,18 @@ const User = mongoose.model('User', {
             }
         }
     },
+    password: {
+        type: String,
+        required: true,
+        trim: true,
+        validate (value) {
+            if (value.length < 6) {
+                throw new Error('Password must be longer than six characters.')
+            } else if (value.includes('password')) {
+                throw new Error('Password cannot be "password"')
+            }
+        }
+    },
     age: {
         type: Number,
         default: 0,
