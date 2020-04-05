@@ -54,25 +54,30 @@ app.post('/tasks', async (req, res) => {
     }
 })
 
-app.get('/tasks', (req, res) => {
-    Task.find({}).then((tasks) => {
+app.get('/tasks', async (req, res) => {
+    try{
+        const tasks = await Task.find({})
         res.send(tasks)
-    }).catch((e) => {
+    } catch (e) {
         res.status(500).send()
-    })  
+    }
 })
+    
 
-app.get('/tasks/:id', (req, res) => {
+app.get('/tasks/:id', async (req, res) => {
     const _id = req.params.id
-    Task.findById(_id).then((task) => {
+    try {
+        const task = await Task.findById(_id)
+        
         if (!task) {
             return res.status(404).send()
         }
 
         res.send(task)
-    }).catch((e) => {
+        
+    } catch (e) {
         res.status(500).send()
-    })
+    }
 })
 
 app.listen(port, () => {
