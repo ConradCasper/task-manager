@@ -95,20 +95,47 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: 
     //     console.log(count);
     // })
 
-    db.collection('tasks').findOne({ _id: ObjectID("5fbc1ad4dfa24fc3fca1020a") }, (error, task) => {
-        if (error) {
-            return console.log('Unable to fetch document');
+//     db.collection('tasks').findOne({ _id: ObjectID("5fbc1ad4dfa24fc3fca1020a") }, (error, task) => {
+//         if (error) {
+//             return console.log('Unable to fetch document');
+//         }
+
+//         console.log(task);
+//     });
+
+//     db.collection('tasks').find({ completed: false }).toArray((error, tasks) => {
+//         if (error){
+//             return console.log('Unable to fetch documents');
+//         }
+
+//         console.log(tasks);
+//     });
+
+
+// ************************* Update ********************************
+
+    // db.collection('users').updateOne({
+    //     _id: new ObjectID('5fbc11091320fbb6cbfc09a9')
+    // }, {
+    //     $inc: {
+    //         age: 1
+    //     }
+    // }).then((result) => {
+    //     console.log(result);
+    // }).catch(error => {
+    //     console.log(error);
+    // });
+
+    db.collection('tasks').updateMany({
+        completed: false
+    }, {
+        $set: {
+            completed: true
         }
-
-        console.log(task);
-    });
-
-    db.collection('tasks').find({ completed: false }).toArray((error, tasks) => {
-        if (error){
-            return console.log('Unable to fetch documents');
-        }
-
-        console.log(tasks);
+    }).then((result) => {
+        console.log(result);
+    }).catch((error) => {
+        console.log(error);
     });
 
 

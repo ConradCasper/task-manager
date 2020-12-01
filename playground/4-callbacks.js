@@ -10,4 +10,4 @@ doWorkCallback((error, result) => {
         return console.log(error)
     }
     console.log(result)
-})
+});
